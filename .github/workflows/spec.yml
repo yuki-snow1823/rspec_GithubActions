@@ -1,0 +1,25 @@
+name: Ruby
+
+on:
+# プルリク時に実行
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  run_spec:
+    name: Run spec
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@mv1
+    - name: Set up Ruby 3.0.0
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 3.0.x
+    # 用意したものが実行されると思う
+    - name: Rspec Test
+      run: |
+        gem install bundler
+        bundle install --path vendor/bundle
+        bundle exec rspec
